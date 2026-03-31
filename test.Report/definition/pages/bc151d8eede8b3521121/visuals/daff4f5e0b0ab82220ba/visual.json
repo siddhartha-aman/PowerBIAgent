@@ -1,0 +1,121 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.7.0/schema.json",
+  "name": "daff4f5e0b0ab82220ba",
+  "position": {
+    "x": 271.69902343422842,
+    "y": 98.799644885173961,
+    "z": 0,
+    "height": 362.26536457897117,
+    "width": 784.90828992110426
+  },
+  "visual": {
+    "visualType": "clusteredColumnChart",
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "social_media_productivity_6000"
+                    }
+                  },
+                  "Property": "age"
+                }
+              },
+              "queryRef": "social_media_productivity_6000.age",
+              "nativeQueryRef": "age",
+              "active": true
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "social_media_productivity_6000"
+                        }
+                      },
+                      "Property": "Net Productive Time"
+                    }
+                  },
+                  "Function": 0
+                }
+              },
+              "queryRef": "Sum(social_media_productivity_6000.Net Productive Time)",
+              "nativeQueryRef": "Sum of Net Productive Time"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Aggregation": {
+                "Expression": {
+                  "Column": {
+                    "Expression": {
+                      "SourceRef": {
+                        "Entity": "social_media_productivity_6000"
+                      }
+                    },
+                    "Property": "Net Productive Time"
+                  }
+                },
+                "Function": 0
+              }
+            },
+            "direction": "Descending"
+          }
+        ],
+        "isDefaultSort": true
+      }
+    },
+    "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "91a1ca1136853d4a6e3e",
+        "field": {
+          "Aggregation": {
+            "Expression": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "social_media_productivity_6000"
+                  }
+                },
+                "Property": "Net Productive Time"
+              }
+            },
+            "Function": 0
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "edb7cfe02d7662c6061a",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "social_media_productivity_6000"
+              }
+            },
+            "Property": "age"
+          }
+        },
+        "type": "Advanced"
+      }
+    ]
+  }
+}

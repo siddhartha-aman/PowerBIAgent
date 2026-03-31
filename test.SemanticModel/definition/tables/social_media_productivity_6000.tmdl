@@ -1,0 +1,117 @@
+table social_media_productivity_6000
+	lineageTag: 672e50c4-26d4-490f-9ebc-e1af017ea4e8
+
+	column age
+		dataType: int64
+		formatString: 0
+		lineageTag: d46bbfa6-c2d6-43e0-b3a5-3cc5ec8a40fb
+		summarizeBy: sum
+		sourceColumn: age
+
+		annotation SummarizationSetBy = Automatic
+
+	column daily_screen_time
+		dataType: double
+		lineageTag: 2a4ba088-0ecf-496b-9dc1-755b4d4ba465
+		summarizeBy: sum
+		sourceColumn: daily_screen_time
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column social_media_hours
+		dataType: double
+		lineageTag: 32c47ec9-8b65-4336-a5e8-0252946bdd44
+		summarizeBy: sum
+		sourceColumn: social_media_hours
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column study_hours
+		dataType: double
+		lineageTag: 6f005d1d-e6c6-4447-b619-a36770d94beb
+		summarizeBy: sum
+		sourceColumn: study_hours
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column sleep_hours
+		dataType: double
+		lineageTag: c79d3ea8-49c2-4ed3-8921-3372a7af6aa0
+		summarizeBy: sum
+		sourceColumn: sleep_hours
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column notifications_per_day
+		dataType: int64
+		formatString: 0
+		lineageTag: db4c122b-dd3b-471d-97aa-cb1c347285af
+		summarizeBy: sum
+		sourceColumn: notifications_per_day
+
+		annotation SummarizationSetBy = Automatic
+
+	column focus_score
+		dataType: double
+		lineageTag: f00c63cc-e041-4f85-a34e-ef438fe04180
+		summarizeBy: sum
+		sourceColumn: focus_score
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column addiction_level
+		dataType: string
+		lineageTag: 5c32131c-5080-483a-b535-7ce73dc36206
+		summarizeBy: none
+		sourceColumn: addiction_level
+
+		annotation SummarizationSetBy = Automatic
+
+	column productivity_score
+		dataType: double
+		lineageTag: e6f1dac9-6ae9-489a-946e-10073ce66a80
+		summarizeBy: sum
+		sourceColumn: productivity_score
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Social Media % of Screen Time' = social_media_productivity_6000[social_media_hours] / social_media_productivity_6000[daily_screen_time]
+		lineageTag: 51beec47-7f23-477a-82bf-a984e27b4c13
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Net Productive Time' = social_media_productivity_6000[study_hours] - social_media_productivity_6000[social_media_hours]
+		lineageTag: 37248b25-cd7d-4434-bb83-712939537fe0
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition social_media_productivity_6000 = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents("C:\Users\kumarsid\Desktop\social_media_productivity_6000.csv"),[Delimiter=",", Columns=9, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"age", Int64.Type}, {"daily_screen_time", type number}, {"social_media_hours", type number}, {"study_hours", type number}, {"sleep_hours", type number}, {"notifications_per_day", Int64.Type}, {"focus_score", type number}, {"addiction_level", type text}, {"productivity_score", type number}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_ResultType = Table
+
