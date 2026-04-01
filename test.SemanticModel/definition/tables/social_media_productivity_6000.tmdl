@@ -87,13 +87,11 @@ table social_media_productivity_6000
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
-	column 'Social Media % of Screen Time' = social_media_productivity_6000[social_media_hours] / social_media_productivity_6000[daily_screen_time]
+	column 'Social Media % of Screen Time' = social_media_productivity_6000[social_media_hours] -
 		lineageTag: 51beec47-7f23-477a-82bf-a984e27b4c13
-		summarizeBy: sum
+		summarizeBy: none
 
 		annotation SummarizationSetBy = Automatic
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
 	column 'Net Productive Time' = social_media_productivity_6000[study_hours] - social_media_productivity_6000[social_media_hours]
 		lineageTag: 37248b25-cd7d-4434-bb83-712939537fe0
